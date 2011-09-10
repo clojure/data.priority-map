@@ -1,5 +1,7 @@
 # clojure.data.priority-map
 
+Formerly clojure.contrib.priority-map.
+
 A priority map is very similar to a sorted map, 
 but whereas a sorted map produces a
 sequence of the entries sorted by key, a priority
