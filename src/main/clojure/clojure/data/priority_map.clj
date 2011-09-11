@@ -189,7 +189,7 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
                 (assoc (dissoc priority->set-of-items current-priority)
                   priority (conj (get priority->set-of-items priority #{}) item))
                 (assoc item->priority item priority)
-                _meta)
+                (meta this))
               ;Subcase 3 - there were many items associated with the item's original priority,
               ;so remove it from the old set and conj it onto the new one.
               (PersistentPriorityMap.
@@ -197,13 +197,13 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
                   current-priority (disj (get priority->set-of-items current-priority) item)
                   priority (conj (get priority->set-of-items priority #{}) item))
                 (assoc item->priority item priority)
-                _meta))))
+                (meta this)))))
         ; Case 2: Item is new to the priority map, so just add it.
         (PersistentPriorityMap.
           (assoc priority->set-of-items
             priority (conj (get priority->set-of-items priority #{}) item))
           (assoc item->priority item priority)
-          _meta))))
+          (meta this)))))
 
   (empty [this] pm-empty)
 
@@ -239,11 +239,13 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 	  (if (= (count item-set) 1)
 	    ;;If it is the only item with this priority, remove that priority's set completely
 	    (PersistentPriorityMap. (dissoc priority->set-of-items priority)
-				    (dissoc item->priority item) _meta)
+				    (dissoc item->priority item)
+                    (meta this))
 	    ;;Otherwise, just remove the item from the priority's set.
 	    (PersistentPriorityMap.
 	     (assoc priority->set-of-items priority (disj item-set item)),
-	     (dissoc item->priority item) _meta))))))
+	     (dissoc item->priority item)
+         (meta this)))))))
 
   java.io.Serializable  ;Serialization comes for free with the other things implemented
   clojure.lang.MapEquivalence
@@ -276,11 +278,13 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
           ;If the first item is the only item with its priority, remove that priority's set completely
           (PersistentPriorityMap.
             (dissoc priority->set-of-items priority)
-            (dissoc item->priority item) _meta)
+            (dissoc item->priority item)
+            (meta this))
           ;Otherwise, just remove the item from the priority's set.
           (PersistentPriorityMap.
             (assoc priority->set-of-items priority (disj item-set item)),
-            (dissoc item->priority item) _meta)))))
+            (dissoc item->priority item)
+            (meta this))))))
 
   clojure.lang.IFn
   ;makes priority map usable as a function
