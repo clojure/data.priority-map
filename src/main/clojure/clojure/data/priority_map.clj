@@ -161,7 +161,7 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 ; as well as a hash map that maps items to priorities (item->priority)
 ; Priority maps may also have metadata
 
-(deftype PersistentPriorityMap [priority->set-of-items item->priority __meta]
+(deftype PersistentPriorityMap [priority->set-of-items item->priority _meta]
   Object
   (toString [this] (str (.seq this)))
 
@@ -188,19 +188,22 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
               (PersistentPriorityMap.
                 (assoc (dissoc priority->set-of-items current-priority)
                   priority (conj (get priority->set-of-items priority #{}) item))
-                (assoc item->priority item priority))
+                (assoc item->priority item priority)
+                _meta)
               ;Subcase 3 - there were many items associated with the item's original priority,
               ;so remove it from the old set and conj it onto the new one.
               (PersistentPriorityMap.
                 (assoc priority->set-of-items
                   current-priority (disj (get priority->set-of-items current-priority) item)
                   priority (conj (get priority->set-of-items priority #{}) item))
-                (assoc item->priority item priority)))))
+                (assoc item->priority item priority)
+                _meta))))
         ; Case 2: Item is new to the priority map, so just add it.
         (PersistentPriorityMap.
           (assoc priority->set-of-items
             priority (conj (get priority->set-of-items priority #{}) item))
-          (assoc item->priority item priority)))))
+          (assoc item->priority item priority)
+          _meta))))
 
   (empty [this] pm-empty)
 
@@ -236,11 +239,11 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 	  (if (= (count item-set) 1)
 	    ;;If it is the only item with this priority, remove that priority's set completely
 	    (PersistentPriorityMap. (dissoc priority->set-of-items priority)
-				    (dissoc item->priority item))
+				    (dissoc item->priority item) _meta)
 	    ;;Otherwise, just remove the item from the priority's set.
 	    (PersistentPriorityMap.
 	     (assoc priority->set-of-items priority (disj item-set item)),
-	     (dissoc item->priority item)))))))
+	     (dissoc item->priority item) _meta))))))
 
   java.io.Serializable  ;Serialization comes for free with the other things implemented
   clojure.lang.MapEquivalence
@@ -273,11 +276,11 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
           ;If the first item is the only item with its priority, remove that priority's set completely
           (PersistentPriorityMap.
             (dissoc priority->set-of-items priority)
-            (dissoc item->priority item))
+            (dissoc item->priority item) _meta)
           ;Otherwise, just remove the item from the priority's set.
           (PersistentPriorityMap.
             (assoc priority->set-of-items priority (disj item-set item)),
-            (dissoc item->priority item))))))
+            (dissoc item->priority item) _meta)))))
 
   clojure.lang.IFn
   ;makes priority map usable as a function
@@ -286,7 +289,7 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 
   clojure.lang.IObj
   ;adds metadata support
-  (meta [this] __meta)
+  (meta [this] _meta)
   (withMeta [this m] (PersistentPriorityMap. priority->set-of-items item->priority m))
 
   clojure.lang.Reversible
@@ -306,7 +309,7 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 ;;   (if ascending (seq this) (rseq this))))
 
 (def ^:private pm-empty (PersistentPriorityMap. (sorted-map) {} {}))
-(defn- pm-empty-by [comparator] (PersistentPriorityMap. (sorted-map-by comparator) {}))
+(defn- pm-empty-by [comparator] (PersistentPriorityMap. (sorted-map-by comparator) {} {}))
 
 ; The main way to build priority maps
 (defn priority-map
