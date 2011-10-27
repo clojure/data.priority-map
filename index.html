@@ -1,0 +1,247 @@
+<html>
+  <head>
+    <title>clojure.data.priority-map - Priority maps 0.0.2 API documentation</title>
+    <link href="static/favicon.png" rel="icon" />
+    <link href="static/favicon.png" rel="shortcut icon" />
+    <link media="all" type="text/css" href="static/clojure.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/wiki.css" rel="stylesheet" />
+    <link media="all" type="text/css" href="static/internal.css" rel="stylesheet" />
+    <style>.menuWrapper{height: 36px;}</style>
+    <!--[if lte IE 6]>
+    <link rel="stylesheet" href="http://www.wikispaces.com/_/2009051601/s/internal_ie.css" type="text/css" />
+    <![endif]-->
+  </head>
+<!--
+This document was auto-generated from the source by the clojure autodoc system.
+To report errors or ask questions about the overall documentation structure, formatting,
+etc., contact Tom Faulhaber (google mail name: tomfaulhaber).
+For errors in the documentation of a particular namespace, contact the author of that
+namespace.
+-->
+  <body>
+    <div id="AllContentContainer">
+      <div id="Header">
+	<a id="Logo" href="index.html"><img alt="Clojure" height="100" width="100" src="static/clojure-icon.gif" /></a>
+	<h1><a title="page header title" id="page-header" href="index.html">data.priority-map API Reference</a></h1>
+      </div>
+      <div id="leftcolumn"><div style="text-align: center;"></div>
+<div class="menu">
+  <div class="WikiCustomNav WikiElement wiki">
+    <span class="toc-header"><span id="project-name">Priority maps</span> <span id="version">0.0.2</span> API</span><br />
+    <ul>
+      <li><a class="wiki_link" href="index.html">Overview</a></li>
+      <li><a class="wiki_link" href="api-index.html">API Index</a></li>
+    </ul>
+    
+    
+    <a href="http://clojure.org" class="wiki_link">Clojure Home</a>
+  </div>
+</div>
+</div>
+      <div id="rightcolumn">
+	<div id="Content">
+	  <div class="contentBox"><div class="innerContentBox">
+              <div id="content_view" class="wiki wikiPage">
+                <div id="right-sidebar"><div id="toc">
+  <h1 class="nopad">Table of Contents</h1>
+  <div style="margin-left: 1em;" class="toc-section">
+    <a href="#toc0">Overview</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a href="#clojure.data.priority-map/priority-map">priority-map</a>
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a href="#clojure.data.priority-map/priority-map-by">priority-map-by</a>
+    </div>
+    <br />
+  </div>
+</div>
+</div>
+                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">clojure.data.priority-map</span>
+  - <span id="header-project">Priority maps</span> <span id="header-version">0.0.2</span> (<span id="header-status">in development</span>)
+  </h1>
+<span id="author-line">by <span id="author-name">Mark Engelberg</span><br /></span>
+<br />Full namespace name: <span id="long-name">clojure.data.priority-map</span>
+<p></p>
+<h2>Overview</h2>
+<pre id="namespace-docstr">A priority map is very similar to a sorted map, but whereas a sorted map produces a
+sequence of the entries sorted by key, a priority map produces the entries sorted by value.
+In addition to supporting all the functions a sorted map supports, a priority map
+can also be thought of as a queue of [item priority] pairs.  To support usage as
+a versatile priority queue, priority maps also support conj/peek/pop operations.
+
+The standard way to construct a priority map is with priority-map:
+user=&gt; (def p (priority-map :a 2 :b 1 :c 3 :d 5 :e 4 :f 3))
+#'user/p
+user=&gt; p
+{:b 1, :a 2, :c 3, :f 3, :e 4, :d 5}
+
+So :b has priority 1, :a has priority 2, and so on.
+Notice how the priority map prints in an order sorted by its priorities (i.e., the map's values)
+
+We can use assoc to assign a priority to a new item:
+user=&gt; (assoc p :g 1)
+{:b 1, :g 1, :a 2, :c 3, :f 3, :e 4, :d 5}
+
+or to assign a new priority to an extant item:
+user=&gt; (assoc p :c 4)
+{:b 1, :a 2, :f 3, :c 4, :e 4, :d 5}
+
+We can remove an item from the priority map:
+user=&gt; (dissoc p :e)
+{:b 1, :a 2, :c 3, :f 3, :d 5}
+
+An alternative way to add to the priority map is to conj a [item priority] pair:
+user=&gt; (conj p [:g 0])
+{:g 0, :b 1, :a 2, :c 3, :f 3, :e 4, :d 5}
+
+or use into:
+user=&gt; (into p [[:g 0] [:h 1] [:i 2]])
+{:g 0, :b 1, :h 1, :a 2, :i 2, :c 3, :f 3, :e 4, :d 5}
+
+Priority maps are countable:
+user=&gt; (count p)
+6
+
+Like other maps, equivalence is based not on type, but on contents.
+In other words, just as a sorted-map can be equal to a hash-map,
+so can a priority-map.
+user=&gt; (= p {:b 1, :a 2, :c 3, :f 3, :e 4, :d 5})
+true
+
+You can test them for emptiness:
+user=&gt; (empty? (priority-map))
+true
+user=&gt; (empty? p)
+false
+
+You can test whether an item is in the priority map:
+user=&gt; (contains? p :a)
+true
+user=&gt; (contains? p :g)
+false
+
+It is easy to look up the priority of a given item, using any of the standard map mechanisms:
+user=&gt; (get p :a)
+2
+user=&gt; (get p :g 10)
+10
+user=&gt; (p :a)
+2
+user=&gt; (:a p)
+2
+
+Priority maps derive much of their utility by providing priority-based seq.
+Note that no guarantees are made about the order in which items of the same priority appear.
+user=&gt; (seq p)
+([:b 1] [:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
+Because no guarantees are made about the order of same-priority items, note that
+rseq might not be an exact reverse of the seq.  It is only guaranteed to be in
+descending order.
+user=&gt; (rseq p)
+([:d 5] [:e 4] [:c 3] [:f 3] [:a 2] [:b 1])
+
+This means first/rest/next/for/map/etc. all operate in priority order.
+user=&gt; (first p)
+[:b 1]
+user=&gt; (rest p)
+([:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
+
+Priority maps support metadata:
+user=&gt; (meta (with-meta p {:extra :info}))
+{:extra :info}
+
+But perhaps most importantly, priority maps can also function as priority queues.
+peek, like first, gives you the first [item priority] pair in the collection.
+pop removes the first [item priority] from the collection.
+(Note that unlike rest, which returns a seq, pop returns a priority map).
+
+user=&gt; (peek p)
+[:b 1]
+user=&gt; (pop p)
+{:a 2, :c 3, :f 3, :e 4, :d 5}
+
+It is also possible to use a custom comparator:
+user=&gt; (priority-map-by (comparator &gt;) :a 1 :b 2 :c 3)
+{:c 3, :b 2, :a 1}
+
+All of these operations are efficient.  Generally speaking, most operations
+are O(log n) where n is the number of distinct priorities.  Some operations
+(for example, straightforward lookup of an item's priority, or testing
+whether a given item is in the priority map) are as efficient
+as Clojure's built-in map.
+
+The key to this efficiency is that internally, not only does the priority map store
+an ordinary hash map of items to priority, but it also stores a sorted map that
+maps priorities to sets of items with that priority.
+
+A typical textbook priority queue data structure supports at the ability to add
+a [item priority] pair to the queue, and to pop/peek the next [item priority] pair.
+But many real-world applications of priority queues require more features, such
+as the ability to test whether something is already in the queue, or to reassign
+a priority.  For example, a standard formulation of Dijkstra's algorithm requires the
+ability to reduce the priority number associated with a given item.  Once you
+throw persistence into the mix with the desire to adjust priorities, the traditional
+structures just don't work that well.
+
+This particular blend of Clojure's built-in hash sets, hash maps, and sorted maps
+proved to be a great way to implement an especially flexible persistent priority queue.
+
+Connoisseurs of algorithms will note that this structure's peek operation is not O(1) as
+it would be if based upon a heap data structure, but I feel this is a small concession for
+the blend of persistence, priority reassignment, and priority-sorted seq, which can be
+quite expensive to achieve with a heap (I did actually try this for comparison).  Furthermore,
+this peek's logarithmic behavior is quite good (on my computer I can do a million
+peeks at a priority map with a million items in 750ms).  Also, consider that peek and pop
+usually follow one another, and even with a heap, pop is logarithmic.  So the net combination
+of peek and pop is not much different between this versatile formulation of a priority map and
+a more limited heap-based one.  In a nutshell, peek, although not O(1), is unlikely to be the
+bottleneck in your program.
+
+All in all, I hope you will find priority maps to be an easy-to-use and useful addition
+to Clojure's assortment of built-in maps (hash-map and sorted-map).</pre>
+
+
+<br />
+<h2>Public Variables and Functions</h2>
+<div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="clojure.data.priority-map/priority-map">priority-map</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (priority-map &amp; keyvals)
+</pre>
+  <pre id="var-docstr">keyval =&gt; key val
+Returns a new priority map with supplied mappings</pre>
+  
+  
+  <a href="https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L319" id="var-source">Source</a>
+</div><div id="var-entry">
+  <br />
+  <hr />
+  <h2 id="clojure.data.priority-map/priority-map-by">priority-map-by</h2>
+  <span id="var-type">function</span><br />
+  <pre id="var-usage">Usage: (priority-map-by comparator &amp; keyvals)
+</pre>
+  <pre id="var-docstr">keyval =&gt; key val
+Returns a new priority map with supplied mappings</pre>
+  
+  
+  <a href="https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L325" id="var-source">Source</a>
+</div>
+
+
+</div>
+              </div>
+            </div>
+          </div>
+	</div>
+	<div id="foot">
+	  <div style="text-align: center;" id="copyright">Copyright 2007-2011 by Rich Hickey and the various contributors</div>
+	</div>
+      </div>
+      <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
+      Clojure auto-documentation system by Tom Faulhaber.</div>
+    </div>
+    <!-- /AllContentContainer -->
+  </body>
+
+</html>
