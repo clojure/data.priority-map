@@ -35,4 +35,12 @@
    "keyval => key val\nReturns a new priority map with supplied mappings",
    :var-type "function",
    :line 325,
-   :file "src/main/clojure/clojure/data/priority_map.clj"})}
+   :file "src/main/clojure/clojure/data/priority_map.clj"}
+  {:file nil,
+   :raw-source-url nil,
+   :source-url nil,
+   :wiki-url
+   "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/PersistentPriorityMap",
+   :namespace "clojure.data.priority-map",
+   :var-type "type",
+   :name "PersistentPriorityMap"})}

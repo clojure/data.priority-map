@@ -45,18 +45,31 @@ namespace.
                 <div id="right-sidebar"><div id="toc">
   <h1 class="nopad">Table of Contents</h1>
   <div style="margin-left: 1em;" class="toc-section">
-    <a href="#toc0">Overview</a>
+    <a href="#toc0" style="margin-top: 3px;">Overview</a>
+    
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#" style="margin-top: 3px;"></a>
+    
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#type-section" style="margin-top: 3px;">Types</a>
     <div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.data.priority-map/priority-map">priority-map</a>
-    </div><div style="margin-left: 1em;" class="toc-entry">
-      <a href="#clojure.data.priority-map/priority-map-by">priority-map-by</a>
+      <a class="toc-entry-anchor" href="#clojure.data.priority-map/PersistentPriorityMap">PersistentPriorityMap</a>
+      
     </div>
-    <br />
+  </div><div style="margin-left: 1em;" class="toc-section">
+    <a href="#var-section" style="margin-top: 3px;">Vars and Functions</a>
+    <div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.data.priority-map/priority-map">priority-map</a>
+      
+    </div><div style="margin-left: 1em;" class="toc-entry">
+      <a class="toc-entry-anchor" href="#clojure.data.priority-map/priority-map-by">priority-map-by</a>
+      
+    </div>
   </div>
 </div>
 </div>
-                <div id="content-tag"><h1 id="overview">API for <span id="namespace-name">clojure.data.priority-map</span>
-  - <span id="header-project">Priority maps</span> <span id="header-version">0.0.2</span> (<span id="header-status">in development</span>)
+                <div id="content-tag"><h1 id="overview">API for <span id="clojure.data.priority-map">clojure.data.priority-map</span>
+  - <span id="header-project">Priority maps</span> <span id="header-version">0.0.2</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
   </h1>
 <span id="author-line">by <span id="author-name">Mark Engelberg</span><br /></span>
 <br />Full namespace name: <span id="long-name">clojure.data.priority-map</span>
@@ -201,31 +214,50 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).</pre>
 
 
 <br />
-<h2>Public Variables and Functions</h2>
-<div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.data.priority-map/priority-map">priority-map</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (priority-map &amp; keyvals)
+
+
+<div id="type-section">
+  <p></p>
+  <h2>Types</h2>
+  <div id="type-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.data.priority-map/PersistentPriorityMap">PersistentPriorityMap</h2>
+    <span id="type-type">type</span><br />
+    <pre id="type-docstr"></pre>
+    Fields: <span id="type-fields">[priority-&gt;set-of-items item-&gt;priority _meta]</span><br />
+    Protocols: <span id="type-protocols"></span><br />
+    Interfaces: <span id="type-interfaces">clojure.lang.IFn, clojure.lang.ILookup, clojure.lang.IObj, clojure.lang.IPersistentMap, clojure.lang.IPersistentStack, clojure.lang.MapEquivalence, clojure.lang.Reversible, java.io.Serializable, java.util.Map</span><br />
+  </div>
+</div>
+<div id="var-section">
+  <p></p>
+  <h2>Public Variables and Functions</h2>
+  <div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.data.priority-map/priority-map">priority-map</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (priority-map &amp; keyvals)
 </pre>
-  <pre id="var-docstr">keyval =&gt; key val
+    <pre id="var-docstr">keyval =&gt; key val
 Returns a new priority map with supplied mappings</pre>
-  
-  
-  <a href="https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L319" id="var-source">Source</a>
-</div><div id="var-entry">
-  <br />
-  <hr />
-  <h2 id="clojure.data.priority-map/priority-map-by">priority-map-by</h2>
-  <span id="var-type">function</span><br />
-  <pre id="var-usage">Usage: (priority-map-by comparator &amp; keyvals)
+    
+    
+    <a href="https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L319" id="var-source">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.data.priority-map/priority-map-by">priority-map-by</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (priority-map-by comparator &amp; keyvals)
 </pre>
-  <pre id="var-docstr">keyval =&gt; key val
+    <pre id="var-docstr">keyval =&gt; key val
 Returns a new priority map with supplied mappings</pre>
-  
-  
-  <a href="https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L325" id="var-source">Source</a>
+    
+    
+    <a href="https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L325" id="var-source">Source</a>
+  </div>
 </div>
 
 
@@ -235,7 +267,7 @@ Returns a new priority map with supplied mappings</pre>
           </div>
 	</div>
 	<div id="foot">
-	  <div style="text-align: center;" id="copyright">Copyright 2007-2011 by Rich Hickey and the various contributors</div>
+	  <div style="text-align: center;" id="copyright">Copyright 2007-2012 by Rich Hickey and the various contributors</div>
 	</div>
       </div>
       <div id="DesignedBy">Logo &amp; site design by <a title="Visit Tom Hickey's website." href="http://www.tomhickey.com">Tom Hickey</a>.<br />
