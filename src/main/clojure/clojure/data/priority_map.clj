@@ -261,6 +261,9 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
   (keySet [this] (set (keys this)))
   (values [this] (vals this))
   (entrySet [this] (set this))
+  
+  Iterable
+  (iterator [this] (clojure.lang.SeqIterator. (seq this)))
 
   clojure.lang.IPersistentStack
   (peek [this]
