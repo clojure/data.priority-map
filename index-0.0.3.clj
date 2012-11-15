@@ -1,6 +1,6 @@
 {:namespaces
  ({:source-url
-   "https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/blob/a4f0fd03caea476743f67e98fd109a39f7ac8a4e/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map/clojure.data.priority-map-api.html",
    :name "clojure.data.priority-map",
@@ -12,29 +12,29 @@
    :name "priority-map",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L319",
+   "https://github.com/clojure/data.priority-map/blob/a4f0fd03caea476743f67e98fd109a39f7ac8a4e/src/main/clojure/clojure/data/priority_map.clj#L322",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/a4f0fd03caea476743f67e98fd109a39f7ac8a4e/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map",
    :doc
    "keyval => key val\nReturns a new priority map with supplied mappings",
    :var-type "function",
-   :line 319,
+   :line 322,
    :file "src/main/clojure/clojure/data/priority_map.clj"}
   {:arglists ([comparator & keyvals]),
    :name "priority-map-by",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj#L325",
+   "https://github.com/clojure/data.priority-map/blob/a4f0fd03caea476743f67e98fd109a39f7ac8a4e/src/main/clojure/clojure/data/priority_map.clj#L328",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/8da82017151a9e531d8cde1001760e521b4a7f42/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/a4f0fd03caea476743f67e98fd109a39f7ac8a4e/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map-by",
    :doc
    "keyval => key val\nReturns a new priority map with supplied mappings",
    :var-type "function",
-   :line 325,
+   :line 328,
    :file "src/main/clojure/clojure/data/priority_map.clj"}
   {:file nil,
    :raw-source-url nil,
