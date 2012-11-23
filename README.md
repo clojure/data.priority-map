@@ -13,6 +13,23 @@ can also be thought of as a queue of [item priority] pairs.
 To support usage as a versatile priority queue,
 priority maps also support conj/peek/pop operations.
 
+## Releases and Dependency Information
+
+Latest stable release is [0.0.2]
+
+[Leiningen](https://github.com/technomancy/leiningen) dependency information:
+
+    [org.clojure/data.priority-map "0.0.2"]
+
+[Maven](http://maven.apache.org/) dependency information:
+
+    <dependency>
+      <groupId>org.clojure</groupId>
+      <artifactId>data.priority-map</artifactId>
+      <version>0.0.2</version>
+    </dependency>
+
+
 ## Usage
 
 The standard way to construct a priority map is with priority-map:
@@ -162,6 +179,6 @@ user=> (priority-map-by (comparator >) :a 1 :b 2 :c 3)
 
 ## License
 
-Copyright (C) 2011 FIXME
+Copyright (C) 2011 Mark Engelberg
 
 Distributed under the Eclipse Public License, the same as Clojure.
