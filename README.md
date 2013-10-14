@@ -171,7 +171,7 @@ A common mistake is to try to solve this with a custom comparator:
 This will not work!  In Clojure, like Java, all comparators must be *total orders*,
 meaning that you can't have a "tie" unless the objects you are comparing are
 in fact equal.  The above comparator breaks that rule because
-[2 :apple] and [2 :apricot] tie, but are not equal.
+`[2 :apple]` and `[2 :apricot]` tie, but are not equal.
 
 The correct way to construct such a priority map is by specifying a keyfn
 (similar to the way clojure.core/sort-by takes a keyfn), which is used
