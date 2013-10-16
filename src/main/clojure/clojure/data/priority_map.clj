@@ -122,16 +122,20 @@ meaning that you can't have a tie unless the objects you are comparing are
 in fact equal.  The above comparator breaks that rule because
 [2 :apple] and [2 :apricot] tie, but are not equal.
 
-The correct way to construct such a priority map is by specifying a keyfn
-(similar to the way clojure.core/sort-by takes a keyfn), which is used
-to extract the true priority from the priority map's vals.  In the above example,
+The correct way to construct such a priority map is by specifying a keyfn, which is used
+to extract the true priority from the priority map's vals.  (Note: It might seem a little odd
+that the priority-extraction function is called a *key*fn, even though it is applied to the
+map's values.  This terminology is based on the docstring of clojure.core/sort-by, which
+uses `keyfn` for the function which extracts the sort order.) 
+
+In the above example,
 
 user=> (priority-map-keyfn first :a [2 :apple], :b [1 :banana], :c [3 :carrot])
 {:b [1 :banana], :a [2 :apple], :c [3 :carrot]}
 
 You can also combine a keyfn with a comparator that operates on the extracted priorities:
 
-user=> (priority-map-keyfn 
+user=> (priority-map-keyfn-by 
           first >
           :a [2 :apple], :b [1 :banana], :c [3 :carrot])
 {:c [3 :carrot], :a [2 :apple], :b [1 :banana]}
@@ -383,23 +387,35 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 
 ; The main way to build priority maps
 (defn priority-map
-  "keyval => key val
-Returns a new priority map with supplied mappings"
+  "Usage: (priority-map key val key val ...)
+Returns a new priority map with optional supplied mappings.
+(priority-map) returns an empty priority map."
   [& keyvals]
+  {:pre [(even? (count keyvals))]}
   (reduce conj pm-empty (partition 2 keyvals)))
 
 (defn priority-map-by
-  "keyval => key val
-Returns a new priority map with supplied mappings"
+  "Usage: (priority-map comparator key val key val ...)
+Returns a new priority map with custom comparator and optional supplied mappings.
+(priority-map-by comparator) yields an empty priority map with custom comparator."
   [comparator & keyvals]
+  {:pre [(even? (count keyvals))]}
   (reduce conj (pm-empty-by comparator) (partition 2 keyvals)))
 
 (defn priority-map-keyfn
-  "Takes a keyfn, an optional comparator, and an alternating sequence of keys and values.
-Returns a new priority map with supplied mappings, where the priorities are determined by applying keyfn to the map's values, and comparing with the comparator."
-  [keyfn & optional-comparator-and-keyvals]
-  (let [c (count optional-comparator-and-keyvals)]
-    (if (odd? c)
-      (let [[comparator & keyvals] optional-comparator-and-keyvals]
-        (reduce conj (pm-empty-keyfn keyfn comparator) (partition 2 keyvals)))
-      (reduce conj (pm-empty-keyfn keyfn) (partition 2 optional-comparator-and-keyvals)))))
+  "Usage: (priority-map-keyfn keyfn key val key val ...)
+Returns a new priority map with custom keyfn and optional supplied mappings.
+The priority is determined by comparing (keyfn val). 
+(priority-map-keyfn keyfn) yields an empty priority map with custom keyfn."
+  [keyfn & keyvals]
+  {:pre [(even? (count keyvals))]}
+  (reduce conj (pm-empty-keyfn keyfn) (partition 2 keyvals)))
+
+(defn priority-map-keyfn-by
+  "Usage: (priority-map-keyfn-by keyfn comparator key val key val ...)
+Returns a new priority map with custom keyfn, custom comparator, and optional supplied mappings.
+The priority is determined by comparing (keyfn val).
+(priority-map-keyfn-by keyfn comparator) yields an empty priority map with custom keyfn and comparator."
+  [keyfn comparator & keyvals]
+  {:pre [(even? (count keyvals))]}
+  (reduce conj (pm-empty-keyfn keyfn comparator) (partition 2 keyvals)))

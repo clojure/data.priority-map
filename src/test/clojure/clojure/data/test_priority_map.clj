@@ -121,4 +121,4 @@
       (peek p) [:b [1 :b]]
       (pop p) {:a [2 :a] :c [3 :c] :f [3 :f] :e [4 :e] :d [5 :d]}
       (peek (priority-map-keyfn first)) nil
-      (seq (priority-map-keyfn first (comparator >) :a [1 :a] :b [2 :b] :c [3 :c])) [[:c [3 :c]] [:b [2 :b]] [:a [1 :a]]])))
+      (seq (priority-map-keyfn-by first (comparator >) :a [1 :a] :b [2 :b] :c [3 :c])) [[:c [3 :c]] [:b [2 :b]] [:a [1 :a]]])))

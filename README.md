@@ -17,8 +17,8 @@ priority maps also support conj/peek/pop operations.
 
 Latest stable release is [0.0.2]
 
-The README below also describes a new constructor `priority-map-keyfn`
-which is available in [0.0.3-SNAPSHOT].
+The README below also describes two new constructors `priority-map-keyfn` and `priority-map-keyfn-by`
+which are available in [0.0.3-SNAPSHOT].
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
@@ -173,16 +173,20 @@ meaning that you can't have a "tie" unless the objects you are comparing are
 in fact equal.  The above comparator breaks that rule because
 `[2 :apple]` and `[2 :apricot]` tie, but are not equal.
 
-The correct way to construct such a priority map is by specifying a keyfn
-(similar to the way clojure.core/sort-by takes a keyfn), which is used
-to extract the true priority from the priority map's vals.  In the above example,
+The correct way to construct such a priority map is by specifying a keyfn, which is used
+to extract the true priority from the priority map's vals.  (Note: It might seem a little odd
+that the priority-extraction function is called a *key*fn, even though it is applied to the
+map's values.  This terminology is based on the docstring of clojure.core/sort-by, which
+uses `keyfn` for the function which extracts the sort order.) 
+
+In the above example,
 
     user=> (priority-map-keyfn first :a [2 :apple], :b [1 :banana], :c [3 :carrot])
     {:b [1 :banana], :a [2 :apple], :c [3 :carrot]}
 
 You can also combine a keyfn with a comparator that operates on the extracted priorities:
 
-    user=> (priority-map-keyfn first > :a [2 :apple], :b [1 :banana], :c [3 :carrot])
+    user=> (priority-map-keyfn-by first > :a [2 :apple], :b [1 :banana], :c [3 :carrot])
     {:c [3 :carrot], :a [2 :apple], :b [1 :banana]}
 
 ## License
