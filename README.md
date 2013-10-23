@@ -15,21 +15,18 @@ priority maps also support conj/peek/pop operations.
 
 ## Releases and Dependency Information
 
-Latest stable release is [0.0.2]
-
-The README below also describes two new constructors `priority-map-keyfn` and `priority-map-keyfn-by`
-which are available in [0.0.3-SNAPSHOT].
+Latest stable release is [0.0.3]
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/data.priority-map "0.0.2"]
+    [org.clojure/data.priority-map "0.0.3"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.priority-map</artifactId>
-      <version>0.0.2</version>
+      <version>0.0.3</version>
     </dependency>
 
 
@@ -174,10 +171,10 @@ in fact equal.  The above comparator breaks that rule because
 `[2 :apple]` and `[2 :apricot]` tie, but are not equal.
 
 The correct way to construct such a priority map is by specifying a keyfn, which is used
-to extract the true priority from the priority map's vals.  (Note: It might seem a little odd
+to compute or extract the true priority from the priority map's vals. (Note: It might seem a little odd
 that the priority-extraction function is called a *key*fn, even though it is applied to the
 map's values.  This terminology is based on the docstring of clojure.core/sort-by, which
-uses `keyfn` for the function which extracts the sort order.) 
+uses `keyfn` for the function which computes the *sort keys*.) 
 
 In the above example,
 
