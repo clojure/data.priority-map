@@ -251,14 +251,14 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
             (meta this)
             keyfn)))))
 
-  (empty [this] pm-empty)
+  (empty [this] (PersistentPriorityMap. (empty priority->set-of-items) {} _meta keyfn))
 
   ; cons defines conj behavior
   (cons [this e] (let [[item priority] e] (.assoc this item priority)))
 
   ; Like sorted maps, priority maps are equal to other maps provided
   ; their key-value pairs are the same.
-  (equiv [this o] (.equiv item->priority o))
+  (equiv [this o] (= item->priority o))
   (hashCode [this] (.hashCode item->priority))
   (equals [this o] (or (identical? this o) (.equals item->priority o)))
 
