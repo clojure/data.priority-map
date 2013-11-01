@@ -149,7 +149,7 @@ pop removes the first [item priority] from the collection.
 
 It is also possible to use a custom comparator:
 
-    user=> (priority-map-by (comparator >) :a 1 :b 2 :c 3)
+    user=> (priority-map-by > :a 1 :b 2 :c 3)
     {:c 3, :b 2, :a 1}
 
 Sometimes, it is desirable to have a map where the values contain more information
