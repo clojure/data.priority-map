@@ -1,6 +1,6 @@
 {:namespaces
  ({:source-url
-   "https://github.com/clojure/data.priority-map/blob/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/blob/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map/clojure.data.priority-map-api.html",
    :name "clojure.data.priority-map",
@@ -12,9 +12,9 @@
    :name "->PersistentPriorityMap",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj#L204",
+   "https://github.com/clojure/data.priority-map/blob/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj#L204",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/->PersistentPriorityMap",
    :doc
@@ -26,9 +26,9 @@
    :name "priority-map",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj#L389",
+   "https://github.com/clojure/data.priority-map/blob/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj#L389",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map",
    :doc
@@ -40,9 +40,9 @@
    :name "priority-map-by",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj#L397",
+   "https://github.com/clojure/data.priority-map/blob/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj#L397",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map-by",
    :doc
@@ -54,9 +54,9 @@
    :name "priority-map-keyfn",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj#L405",
+   "https://github.com/clojure/data.priority-map/blob/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj#L405",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map-keyfn",
    :doc
@@ -68,9 +68,9 @@
    :name "priority-map-keyfn-by",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj#L414",
+   "https://github.com/clojure/data.priority-map/blob/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj#L414",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/f84b784e943fae90ed466d1e1ade5b87cbacb1fe/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/40543f1f135b7e2d5c70634f40d132b4ef541715/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map-keyfn-by",
    :doc
