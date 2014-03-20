@@ -40,9 +40,6 @@
       (get p :g 8) 8
       (p :a) 2
       (:a p) 2
-      (seq p) '([:b 1] [:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
-      ;Note if implementation of hash-set changes, the :c and :f entries might be swapped
-      (rseq p) '([:d 5] [:e 4] [:c 3] [:f 3] [:a 2] [:b 1])
       ;; (subseq p < 3) '([:b 1] [:a 2])
       ;; (subseq p <= 3) '([:b 1] [:a 2] [:c 3] [:f 3])
       ;; (subseq p > 3) '([:e 4] [:d 5])
@@ -68,13 +65,25 @@
       ;; (rsubseq p >= 2 < 3) '([:a 2])
       ;; (rsubseq p >= 2 <= 3) '([:c 3] [:f 3] [:a 2] )
       (first p) [:b 1]
-      (rest p) '([:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
       (meta (with-meta p {:extra :info})) {:extra :info}
       (peek p) [:b 1]
       (pop p) {:a 2 :c 3 :f 3 :e 4 :d 5}
       (peek (priority-map)) nil
       (seq (priority-map-by (comparator >) :a 1 :b 2 :c 3)) [[:c 3] [:b 2] [:a 1]])))
 
+(deftest test-priority-map-with-flexible-order
+  ;Note when implementation of hash-set changed,
+  ;we need to consider that the :c and :f entries might be swapped
+  (let [p (priority-map :a 2 :b 1 :c 3 :d 5 :e 4 :f 3)
+        h {:a 2 :b 1 :c 3 :d 5 :e 4 :f 3}]
+    (are [x y z] (or (= x y) (= x z))
+         (seq p) '([:b 1] [:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
+                 '([:b 1] [:a 2] [:f 3] [:c 3] [:e 4] [:d 5])
+         (rseq p) '([:d 5] [:e 4] [:c 3] [:f 3] [:a 2] [:b 1])
+                  '([:d 5] [:e 4] [:f 3] [:c 3] [:a 2] [:b 1])
+         (rest p) '([:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
+                  '([:a 2] [:f 3] [:c 3] [:e 4] [:d 5]))))
+         
 (deftest test-priority-map-keyfn
   (let [p (priority-map-keyfn first :a [2 :a] :b [1 :b] :c [3 :c] :d [5 :d] :e [4 :e] :f [3 :f])
         h {:a [2 :a] :b [1 :b] :c [3 :c] :d [5 :d] :e [4 :e] :f [3 :f]}]
@@ -112,11 +121,7 @@
       (get p :g 8) 8
       (p :a) [2 :a]
       (:a p) [2 :a]
-      (seq p) '([:b [1 :b]] [:a [2 :a]] [:c [3 :c]] [:f [3 :f]] [:e [4 :e]] [:d [5 :d]])
-      ;Note if implementation of hash-set changes, the :c and :f entries might be swapped
-      (rseq p) '([:d [5 :d]] [:e [4 :e]] [:c [3 :c]] [:f [3 :f]] [:a [2 :a]] [:b [1 :b]])
       (first p) [:b [1 :b]]
-      (rest p) '([:a [2 :a]] [:c [3 :c]] [:f [3 :f]] [:e [4 :e]] [:d [5 :d]])
       (meta (with-meta p {:extra :info})) {:extra :info}
       (peek p) [:b [1 :b]]
       (pop p) {:a [2 :a] :c [3 :c] :f [3 :f] :e [4 :e] :d [5 :d]}
@@ -126,3 +131,16 @@
       (seq (into (empty (priority-map-keyfn-by first (comparator >)))  [[:a [1 :a]] [:b [2 :b]] [:c [3 :c]]]))
       '([:c [3 :c]] [:b [2 :b]] [:a [1 :a]])
       (seq (priority-map-keyfn-by first (comparator >) :a [1 :a] :b [2 :b] :c [3 :c])) [[:c [3 :c]] [:b [2 :b]] [:a [1 :a]]])))
+
+(deftest test-priority-map-keyfn-with-flexible-order
+  ;Note when implementation of hash-set changed,
+  ;we need to consider that the :c and :f entries might be swapped
+  (let [p (priority-map-keyfn first :a [2 :a] :b [1 :b] :c [3 :c] :d [5 :d] :e [4 :e] :f [3 :f])
+        h {:a [2 :a] :b [1 :b] :c [3 :c] :d [5 :d] :e [4 :e] :f [3 :f]}]
+    (are [x y z] (or (= x y) (= x z))
+         (seq p) '([:b [1 :b]] [:a [2 :a]] [:c [3 :c]] [:f [3 :f]] [:e [4 :e]] [:d [5 :d]])
+                 '([:b [1 :b]] [:a [2 :a]] [:f [3 :f]] [:c [3 :c]] [:e [4 :e]] [:d [5 :d]])
+         (rseq p) '([:d [5 :d]] [:e [4 :e]] [:c [3 :c]] [:f [3 :f]] [:a [2 :a]] [:b [1 :b]])
+                  '([:d [5 :d]] [:e [4 :e]] [:f [3 :f]] [:c [3 :c]] [:a [2 :a]] [:b [1 :b]])
+         (rest p) '([:a [2 :a]] [:c [3 :c]] [:f [3 :f]] [:e [4 :e]] [:d [5 :d]])
+                  '([:a [2 :a]] [:f [3 :f]] [:c [3 :c]] [:e [4 :e]] [:d [5 :d]]))))
