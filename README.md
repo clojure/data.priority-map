@@ -15,18 +15,18 @@ priority maps also support conj/peek/pop operations.
 
 ## Releases and Dependency Information
 
-Latest stable release is [0.0.4]
+Latest stable release is [0.0.5]
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/data.priority-map "0.0.4"]
+    [org.clojure/data.priority-map "0.0.5"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.priority-map</artifactId>
-      <version>0.0.4</version>
+      <version>0.0.5</version>
     </dependency>
 
 
@@ -127,7 +127,7 @@ This means first/rest/next/for/map/etc. all operate in priority order.
 
     user=> (first p)
     [:b 1]
-    
+
     user=> (rest p)
     ([:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
 
