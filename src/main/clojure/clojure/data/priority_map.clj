@@ -179,7 +179,6 @@ All in all, I hope you will find priority maps to be an easy-to-use and useful a
 to Clojure's assortment of built-in maps (hash-map and sorted-map).
 "}
     clojure.data.priority-map
-  (:use clojure.test)
   (:import clojure.lang.MapEntry java.util.Map clojure.lang.PersistentTreeMap))
 
 ; Note that the plan is to eventually support subseq, but this will require
