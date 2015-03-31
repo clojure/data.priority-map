@@ -28,6 +28,7 @@
       (conj p [:c 6]) (conj h [:c 6])
       (conj p [:b 2]) (conj h [:b 2])
       (conj p [:b 6]) (conj h [:b 6])
+      (conj p {:b 6}) (conj h {:b 6})
       (into p [[:g 0] [:h 1] [:i 2]]) (into h [[:g 0] [:h 1] [:i 2]])
       (count p) (count h)
       (empty? p) false

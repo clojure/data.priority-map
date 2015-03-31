@@ -15,18 +15,18 @@ priority maps also support conj/peek/pop operations.
 
 ## Releases and Dependency Information
 
-Latest stable release is [0.0.6]
+Latest stable release is [0.0.7]
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/data.priority-map "0.0.6"]
+    [org.clojure/data.priority-map "0.0.7"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.priority-map</artifactId>
-      <version>0.0.6</version>
+      <version>0.0.7</version>
     </dependency>
 
 
