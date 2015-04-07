@@ -1,6 +1,6 @@
 {:namespaces
  ({:source-url
-   "https://github.com/clojure/data.priority-map/blob/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/blob/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map/clojure.data.priority-map-api.html",
    :name "clojure.data.priority-map",
@@ -12,71 +12,71 @@
    :name "->PersistentPriorityMap",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj#L204",
+   "https://github.com/clojure/data.priority-map/blob/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj#L203",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/->PersistentPriorityMap",
    :doc
    "Positional factory function for class clojure.data.priority_map.PersistentPriorityMap.",
    :var-type "function",
-   :line 204,
+   :line 203,
    :file "src/main/clojure/clojure/data/priority_map.clj"}
   {:arglists ([& keyvals]),
    :name "priority-map",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj#L389",
+   "https://github.com/clojure/data.priority-map/blob/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj#L391",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map",
    :doc
    "Usage: (priority-map key val key val ...)\nReturns a new priority map with optional supplied mappings.\n(priority-map) returns an empty priority map.",
    :var-type "function",
-   :line 389,
+   :line 391,
    :file "src/main/clojure/clojure/data/priority_map.clj"}
   {:arglists ([comparator & keyvals]),
    :name "priority-map-by",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj#L397",
+   "https://github.com/clojure/data.priority-map/blob/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj#L399",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map-by",
    :doc
    "Usage: (priority-map comparator key val key val ...)\nReturns a new priority map with custom comparator and optional supplied mappings.\n(priority-map-by comparator) yields an empty priority map with custom comparator.",
    :var-type "function",
-   :line 397,
+   :line 399,
    :file "src/main/clojure/clojure/data/priority_map.clj"}
   {:arglists ([keyfn & keyvals]),
    :name "priority-map-keyfn",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj#L405",
+   "https://github.com/clojure/data.priority-map/blob/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj#L407",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map-keyfn",
    :doc
    "Usage: (priority-map-keyfn keyfn key val key val ...)\nReturns a new priority map with custom keyfn and optional supplied mappings.\nThe priority is determined by comparing (keyfn val). \n(priority-map-keyfn keyfn) yields an empty priority map with custom keyfn.",
    :var-type "function",
-   :line 405,
+   :line 407,
    :file "src/main/clojure/clojure/data/priority_map.clj"}
   {:arglists ([keyfn comparator & keyvals]),
    :name "priority-map-keyfn-by",
    :namespace "clojure.data.priority-map",
    :source-url
-   "https://github.com/clojure/data.priority-map/blob/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj#L414",
+   "https://github.com/clojure/data.priority-map/blob/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj#L416",
    :raw-source-url
-   "https://github.com/clojure/data.priority-map/raw/12f77d6d35cd03e7f74ba6df8b21b0c081b756d0/src/main/clojure/clojure/data/priority_map.clj",
+   "https://github.com/clojure/data.priority-map/raw/7a8dc3701726fe841f09c00f13e80bbf51dc6b77/src/main/clojure/clojure/data/priority_map.clj",
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/priority-map-keyfn-by",
    :doc
    "Usage: (priority-map-keyfn-by keyfn comparator key val key val ...)\nReturns a new priority map with custom keyfn, custom comparator, and optional supplied mappings.\nThe priority is determined by comparing (keyfn val).\n(priority-map-keyfn-by keyfn comparator) yields an empty priority map with custom keyfn and comparator.",
    :var-type "function",
-   :line 414,
+   :line 416,
    :file "src/main/clojure/clojure/data/priority_map.clj"}
   {:file nil,
    :raw-source-url nil,
