@@ -81,6 +81,7 @@
   {:name "PersistentPriorityMap",
    :var-type "type",
    :namespace "clojure.data.priority-map",
+   :arglists nil,
    :wiki-url
    "http://clojure.github.com/data.priority-map//clojure.data.priority-map-api.html#clojure.data.priority-map/PersistentPriorityMap",
    :source-url nil,
