@@ -16,6 +16,10 @@
     </developer>
   </developers>
 
+  <properties>
+    <clojure.version>1.5.1</clojure.version>
+  </properties>
+
   <scm>
     <connection>scm:git:git@github.com:clojure/data.priority-map.git</connection>
     <developerConnection>scm:git:git@github.com:clojure/data.priority-map.git</developerConnection>
