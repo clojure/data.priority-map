@@ -371,6 +371,12 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
   Iterable
   (iterator [this] (clojure.lang.SeqIterator. (seq this)))
 
+  clojure.core.protocols/IKVReduce
+  (kv-reduce [this f init]
+    (reduce-kv (fn [a k v]
+                 (reduce (fn [a v] (f a v k)) a v))
+               init priority->set-of-items))
+
   clojure.lang.IPersistentStack
   (peek [this]
     (when-not (.isEmpty this)

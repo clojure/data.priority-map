@@ -59,6 +59,9 @@
             (peek p) [:b 1]
             (pop p) {:a 2 :c 3 :f 3 :e 4 :d 5}
             (peek (priority-map)) nil
+            (reduce-kv (fn [a k v] (+ a v)) 0 p) (reduce-kv (fn [a k v] (+ a v)) 0 h)
+            (reduce-kv (fn [a k v] (conj a [k v])) {} p) h
+            (reduce-kv (fn [a k v] (conj a [k v])) [] p) (into [] p)
             (seq (priority-map-by (comparator >) :a 1 :b 2 :c 3)) [[:c 3] [:b 2] [:a 1]])))
 
 (deftest test-priority-map-with-flexible-order
