@@ -15,18 +15,18 @@ priority maps also support conj/peek/pop operations.
 
 ## Releases and Dependency Information
 
-Latest stable release is [0.0.7]
+Latest stable release is [0.0.8]
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/data.priority-map "0.0.7"]
+    [org.clojure/data.priority-map "0.0.8"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.priority-map</artifactId>
-      <version>0.0.7</version>
+      <version>0.0.8</version>
     </dependency>
 
 
@@ -36,7 +36,7 @@ The standard way to construct a priority map is with priority-map:
 
     user=> (def p (priority-map :a 2 :b 1 :c 3 :d 5 :e 4 :f 3))
     #'user/p
-    
+
     user=> p
     {:b 1, :a 2, :c 3, :f 3, :e 4, :d 5}
 
@@ -92,7 +92,7 @@ You can test whether an item is in the priority map:
 
     user=> (contains? p :a)
     true
-    
+
     user=> (contains? p :g)
     false
 
@@ -106,7 +106,7 @@ It is easy to look up the priority of a given item, using any of the standard ma
 
     user=> (p :a)
     2
-    
+
     user=> (:a p)
     2
 
@@ -131,6 +131,27 @@ This means first/rest/next/for/map/etc. all operate in priority order.
     user=> (rest p)
     ([:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
 
+Priority maps also support subseq and rsubseq, however, *you must use the subseq and rsubseq
+defined in the clojure.data.priority-map namespace*, which patches longstanding JIRA issue
+[CLJ-428](https://dev.clojure.org/jira/browse/CLJ-428).  These patched versions
+of subseq and rsubseq will work on Clojure's other sorted collections as well, so you can
+use them as a drop-in replacement for the subseq and rsubseq found in core.
+
+	user=> (subseq p < 3)
+	([:b 1] [:a 2])
+
+	user=> (subseq p >= 3)
+	([:c 3] [:f 3] [:e 4] [:d 5])
+
+   	user=> (subseq p >= 2 < 4)
+	([:a 2] [:c 3] [:f 3])
+
+	user=> (rsubseq p < 4)
+	([:c 3] [:f 3] [:a 2] [:b 1])
+
+	user=> (rsubseq p >= 4)
+	([:d 5] [:e 4])
+
 Priority maps support metadata:
 
     user=> (meta (with-meta p {:extra :info}))
@@ -143,7 +164,7 @@ pop removes the first [item priority] from the collection.
 
     user=> (peek p)
     [:b 1]
-    
+
     user=> (pop p)
     {:a 2, :c 3, :f 3, :e 4, :d 5}
 
@@ -161,20 +182,21 @@ and you want to sort the map by the numeric priority found in the pair.
 
 A common mistake is to try to solve this with a custom comparator:
 
-    (priority-map 
+    (priority-map-by
       (fn [[priority1 _] [priority2 _]] (< priority1 priority2))
       :a [2 :apple], :b [1 :banana], :c [3 :carrot])
 
-This will not work!  In Clojure, like Java, all comparators must be *total orders*,
+This will not work!  Although it may appear to work with these particular values, it is not safe.
+In Clojure, like Java, all comparators must be *total orders*,
 meaning that you can't have a "tie" unless the objects you are comparing are
-in fact equal.  The above comparator breaks that rule because
-`[2 :apple]` and `[2 :apricot]` tie, but are not equal.
+in fact equal.  The above comparator breaks that rule because objects such as
+`[2 :apple]` and `[2 :apricot]` would tie, but are not equal.
 
 The correct way to construct such a priority map is by specifying a keyfn, which is used
 to compute or extract the true priority from the priority map's vals. (Note: It might seem a little odd
 that the priority-extraction function is called a *key*fn, even though it is applied to the
 map's values.  This terminology is based on the docstring of clojure.core/sort-by, which
-uses `keyfn` for the function which computes the *sort keys*.) 
+uses `keyfn` for the function which computes the *sort keys*.)
 
 In the above example,
 
@@ -185,6 +207,11 @@ You can also combine a keyfn with a comparator that operates on the extracted pr
 
     user=> (priority-map-keyfn-by first > :a [2 :apple], :b [1 :banana], :c [3 :carrot])
     {:c [3 :carrot], :a [2 :apple], :b [1 :banana]}
+    
+subseq and rsubseq respect the keyfn and/or comparator:
+
+	user=> (subseq (priority-map-keyfn first :a [2 :apple], :b [1 :banana], :c [3 :carrot]) <= 2)
+	([:b [1 :banana]] [:a [2 :apple]])
 
 ## License
 
