@@ -15,7 +15,7 @@ priority maps also support conj/peek/pop operations.
 
 ## Releases and Dependency Information
 
-Latest stable release is [0.0.8
+Latest stable release is [0.0.8]
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
