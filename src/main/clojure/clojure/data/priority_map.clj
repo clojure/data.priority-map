@@ -204,6 +204,11 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 (defmacro apply-keyfn [x]
   `(if ~'keyfn (~'keyfn ~x) ~x)) 
 
+(defmacro ^:private compile-if [test then else]
+  (if (eval test)
+    then
+    else))
+
 ;; We create a patched version of subseq and rsubseq from core, that works on ordinary sorted collections, as well as priority maps
 ;; See https://dev.clojure.org/jira/browse/CLJ-428
 
@@ -349,6 +354,12 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
              (dissoc item->priority item)
              (meta this)
              keyfn))))))
+  
+  clojure.lang.IHashEq
+  (hasheq [this]
+    (compile-if (resolve 'clojure.core/hash-unordered-coll)
+      (hash-unordered-coll this)
+      (.hashCode this)))
   
   java.io.Serializable  ;Serialization comes for free with the other things implemented
   clojure.lang.MapEquivalence
