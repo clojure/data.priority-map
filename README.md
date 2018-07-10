@@ -26,7 +26,7 @@ Latest stable release is [0.0.10]
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.priority-map</artifactId>
-      <version>0.0.9</version>
+      <version>0.0.10</version>
     </dependency>
 
 
