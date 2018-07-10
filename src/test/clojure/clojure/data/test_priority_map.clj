@@ -143,6 +143,7 @@
             (meta (with-meta p {:extra :info})) {:extra :info}
             (peek p) [:b [1 :b]]
             (pop p) {:a [2 :a] :c [3 :c] :f [3 :f] :e [4 :e] :d [5 :d]}
+            (priority->set-of-items p) {1 #{:b}, 2 #{:a}, 3 #{:c :f}, 4 #{:e}, 5 #{:d}}
             (into (empty (priority-map-by >)) [[:a 2] [:b 1] [:c 3] [:d 5] [:e 4] [:f 3]])
             {:d 5, :e 4, :c 3, :f 3, :a 2, :b 1}
             (peek (priority-map-keyfn first)) nil

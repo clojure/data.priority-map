@@ -15,11 +15,11 @@ priority maps also support conj/peek/pop operations.
 
 ## Releases and Dependency Information
 
-Latest stable release is [0.0.9]
+Latest stable release is [0.0.10]
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/data.priority-map "0.0.9"]
+    [org.clojure/data.priority-map "0.0.10"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
@@ -167,8 +167,15 @@ pop removes the first [item priority] from the collection.
 
     user=> (pop p)
     {:a 2, :c 3, :f 3, :e 4, :d 5}
+    
+Internally, priority maps maintain a sorted map from each priority to the set 
+of items with that priority.  You can access that sorted map with the function
+priority->set-of-items.
 
-It is also possible to use a custom comparator:
+	user=> (priority->set-of-items p)
+	{1 #{:b}, 2 #{:a}, 3 #{:c :f}, 4 #{:e}, 5 #{:d}}
+
+It is possible to build a priority map with a custom comparator:
 
     user=> (priority-map-by > :a 1 :b 2 :c 3)
     {:c 3, :b 2, :a 1}
@@ -207,7 +214,7 @@ You can also combine a keyfn with a comparator that operates on the extracted pr
 
     user=> (priority-map-keyfn-by first > :a [2 :apple], :b [1 :banana], :c [3 :carrot])
     {:c [3 :carrot], :a [2 :apple], :b [1 :banana]}
-    
+
 subseq and rsubseq respect the keyfn and/or comparator:
 
 	user=> (subseq (priority-map-keyfn first :a [2 :apple], :b [1 :banana], :c [3 :carrot]) <= 2)

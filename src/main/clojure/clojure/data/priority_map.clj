@@ -2,7 +2,7 @@
 ;; offering queue-like peek/pop as well as the map-like ability to
 ;; easily reassign priorities and other conveniences.
 ;; by Mark Engelberg (mark.engelberg@gmail.com)
-;; Last update - April 9, 2018
+;; Last update - July 9, 2018
 
 (ns 
     ^{:author "Mark Engelberg",
@@ -490,3 +490,9 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
   [keyfn comparator & keyvals]
   {:pre [(even? (count keyvals))]}
   (reduce conj (pm-empty-keyfn keyfn comparator) (partition 2 keyvals)))
+
+(defn priority->set-of-items
+  "Takes a priority map p, and returns a sorted map from each priority
+  to the set of items with that priority in p"
+  [^PersistentPriorityMap p]
+  (.priority->set-of-items p))
