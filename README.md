@@ -34,6 +34,8 @@ Latest stable release is [0.0.10]
 
 The standard way to construct a priority map is with priority-map:
 
+    user=> (require '[clojure.data.priority-map :refer [priority-map]])
+    nil
     user=> (def p (priority-map :a 2 :b 1 :c 3 :d 5 :e 4 :f 3))
     #'user/p
 
