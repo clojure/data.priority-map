@@ -15,18 +15,20 @@ priority maps also support conj/peek/pop operations.
 
 ## Releases and Dependency Information
 
-Latest stable release is [0.0.10]
+This project follows the version scheme MAJOR.MINOR.PATCH where each component provides some relative indication of the size of the change, but does not follow semantic versioning. In general, all changes endeavor to be non-breaking (by moving to new names rather than by breaking existing names).
+
+Latest stable release is 1.0.0
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/data.priority-map "0.0.10"]
+    [org.clojure/data.priority-map "1.0.0"]
 
 [Maven](http://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.priority-map</artifactId>
-      <version>0.0.10</version>
+      <version>1.0.0</version>
     </dependency>
 
 
@@ -224,6 +226,6 @@ subseq and rsubseq respect the keyfn and/or comparator:
 
 ## License
 
-Copyright (C) 2013 Mark Engelberg
+Copyright (C) 2013-2020 Mark Engelberg, Rich Hickey & contributors
 
 Distributed under the Eclipse Public License, the same as Clojure.
