@@ -1,7 +1,7 @@
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>clojure.data.priority-map - Priority maps 0.0.8 API documentation</title>
+    <title>clojure.data.priority-map - data.priority-map 1.1.0-SNAPSHOT API documentation</title>
     <link rel="icon" href="static/favicon.png" />
     <link rel="shortcut icon" href="static/favicon.png" />
     <link rel="stylesheet" href="static/clojure.css" type="text/css" media="all" />
@@ -25,14 +25,14 @@ namespace.
       <div id="leftcolumn"><div style="text-align: center;"></div>
 <div class="menu">
   <div class="WikiCustomNav WikiElement wiki">
-    <span class="toc-header"><span id="project-name">Priority maps</span> <span id="version">0.0.8</span> API</span><br />
+    <span class="toc-header"><span id="project-name">data.priority-map</span> <span id="version">1.1.0-SNAPSHOT</span> API</span><br />
     <ul>
       <li><a href="index.html" class="wiki_link">Overview</a></li>
       <li><a href="api-index.html" class="wiki_link">API Index</a></li>
     </ul>
     
     
-    <a class="wiki_link" href="http://clojure.org">Clojure Home</a>
+    <a class="wiki_link" href="https://clojure.org">Clojure Home</a>
   </div>
 </div>
 </div>
@@ -60,6 +60,9 @@ namespace.
       <a href="#clojure.data.priority-map/-&gt;PersistentPriorityMap" class="toc-entry-anchor">-&gt;PersistentPriorityMap</a>
       
     </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.data.priority-map/priority-&gt;set-of-items" class="toc-entry-anchor">priority-&gt;set-of-items</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.data.priority-map/priority-map" class="toc-entry-anchor">priority-map</a>
       
     </div><div class="toc-entry" style="margin-left: 1em;">
@@ -71,6 +74,12 @@ namespace.
     </div><div class="toc-entry" style="margin-left: 1em;">
       <a href="#clojure.data.priority-map/priority-map-keyfn-by" class="toc-entry-anchor">priority-map-keyfn-by</a>
       
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.data.priority-map/rsubseq" class="toc-entry-anchor">rsubseq</a>
+      
+    </div><div class="toc-entry" style="margin-left: 1em;">
+      <a href="#clojure.data.priority-map/subseq" class="toc-entry-anchor">subseq</a>
+      
     </div>
   </div><div class="toc-section" style="margin-left: 1em;">
     <a style="margin-top: 3px;" href="#"></a>
@@ -79,13 +88,13 @@ namespace.
 </div>
 </div>
                 <div id="content-tag"><h1 id="overview">API for <span id="clojure.data.priority-map">clojure.data.priority-map</span>
-  - <span id="header-project">Priority maps</span> <span id="header-version">0.0.8</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
+  - <span id="header-project">data.priority-map</span> <span id="header-version">1.1.0-SNAPSHOT</span><span id="header-status-block"> (<span id="header-status">in development</span>)</span>
   </h1>
 <span id="author-line">by <span id="author-name">Mark Engelberg</span><br /></span>
 <br />Full namespace name: <span id="long-name">clojure.data.priority-map</span>
 <p></p>
 <h2>Overview</h2>
-<div id="home-page">Project home page is <a href="http://github.com/clojure/data.priority-map/">http://github.com/clojure/data.priority-map/</a></div>
+<div id="home-page">Project home page is <a href="https://github.com/clojure/data.priority-map/">https://github.com/clojure/data.priority-map/</a></div>
 <pre id="namespace-docstr">A priority map is very similar to a sorted map, but whereas a sorted map produces a
 sequence of the entries sorted by key, a priority map produces the entries sorted by value.
 In addition to supporting all the functions a sorted map supports, a priority map
@@ -169,6 +178,22 @@ user=&gt; (first p)
 user=&gt; (rest p)
 ([:a 2] [:c 3] [:f 3] [:e 4] [:d 5])
 
+Priority maps also support subseq and rsubseq, however, *you must use the subseq and rsubseq
+defined in the clojure.data.priority-map namespace*, which patches longstanding JIRA issue
+[CLJ-428](<a href="https://dev.clojure.org/jira/browse/CLJ-428">https://dev.clojure.org/jira/browse/CLJ-428</a>).  These patched versions
+of subseq and rsubseq will work on Clojure's other sorted collections as well, so you can
+use them as a drop-in replacement for the subseq and rsubseq found in core.
+user=&gt; (subseq p &lt; 3)
+([:b 1] [:a 2])
+user=&gt; (subseq p &gt;= 3)
+([:c 3] [:f 3] [:e 4] [:d 5])
+user=&gt; (subseq p &gt;= 2 &lt; 4)
+([:a 2] [:c 3] [:f 3])
+user=&gt; (rsubseq p &lt; 4)
+([:c 3] [:f 3] [:a 2] [:b 1])
+user=&gt; (rsubseq p &gt;= 4)
+([:d 5] [:e 4])
+
 Priority maps support metadata:
 user=&gt; (meta (with-meta p {:extra :info}))
 {:extra :info}
@@ -193,14 +218,15 @@ than just the priority.  For example, let's say you want a map like:
 and you want to sort the map by the numeric priority found in the pair.
 
 A common mistake is to try to solve this with a custom comparator:
-(priority-map 
+(priority-map-by 
   (fn [[priority1 _] [priority2 _]] (&lt; priority1 priority2))
   :a [2 :apple], :b [1 :banana], :c [3 :carrot])
 
-This will not work!  In Clojure, like Java, all comparators must be total orders,
+This will not work!  Although it may appear to work with these particular values, it is not safe.
+In Clojure, like Java, all comparators must be *total orders*,
 meaning that you can't have a tie unless the objects you are comparing are
-in fact equal.  The above comparator breaks that rule because
-[2 :apple] and [2 :apricot] tie, but are not equal.
+in fact equal.  The above comparator breaks that rule because objects such as
+`[2 :apple]` and `[2 :apricot]` would tie, but are not equal.
 
 The correct way to construct such a priority map is by specifying a keyfn, which is used
 to extract the true priority from the priority map's vals.  (Note: It might seem a little odd
@@ -272,8 +298,8 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).</pre>
     <span id="type-type">type</span><br />
     <pre id="type-docstr"></pre>
     Fields: <span id="type-fields">[priority-&gt;set-of-items item-&gt;priority _meta keyfn]</span><br />
-    Protocols: <span id="type-protocols"></span><br />
-    Interfaces: <span id="type-interfaces">clojure.lang.IFn, clojure.lang.ILookup, clojure.lang.IObj, clojure.lang.IPersistentMap, clojure.lang.IPersistentStack, clojure.lang.MapEquivalence, clojure.lang.Reversible, java.io.Serializable, java.lang.Iterable, java.util.Map</span><br />
+    Protocols: <span id="type-protocols">clojure.core.protocols/IKVReduce</span><br />
+    Interfaces: <span id="type-interfaces">clojure.lang.IFn, clojure.lang.IHashEq, clojure.lang.ILookup, clojure.lang.IObj, clojure.lang.IPersistentMap, clojure.lang.IPersistentStack, clojure.lang.MapEquivalence, clojure.lang.Reversible, clojure.lang.Sorted, java.io.Serializable, java.lang.Iterable, java.util.Map</span><br />
   </div>
 </div>
 <div id="var-section">
@@ -290,7 +316,20 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).</pre>
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/f06c67015b621af712fbabe2f495878945158a40/src/main/clojure/clojure/data/priority_map.clj#L203">Source</a>
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L257">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.data.priority-map/priority-&gt;set-of-items">priority-&gt;set-of-items</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (priority-&gt;set-of-items p)
+</pre>
+    <pre id="var-docstr">Takes a priority map p, and returns a sorted map from each priority
+to the set of items with that priority in p</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L494">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -304,7 +343,7 @@ Returns a new priority map with optional supplied mappings.
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/f06c67015b621af712fbabe2f495878945158a40/src/main/clojure/clojure/data/priority_map.clj#L391">Source</a>
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L460">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -318,7 +357,7 @@ Returns a new priority map with custom comparator and optional supplied mappings
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/f06c67015b621af712fbabe2f495878945158a40/src/main/clojure/clojure/data/priority_map.clj#L399">Source</a>
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L468">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -333,7 +372,7 @@ The priority is determined by comparing (keyfn val).
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/f06c67015b621af712fbabe2f495878945158a40/src/main/clojure/clojure/data/priority_map.clj#L407">Source</a>
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L476">Source</a>
   </div><div id="var-entry">
     <br />
     <hr />
@@ -348,7 +387,37 @@ The priority is determined by comparing (keyfn val).
     <pre id="var-specs"></pre>
     
     
-    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/f06c67015b621af712fbabe2f495878945158a40/src/main/clojure/clojure/data/priority_map.clj#L416">Source</a>
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L485">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.data.priority-map/rsubseq">rsubseq</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (rsubseq sc test key)
+       (rsubseq sc start-test start-key end-test end-key)
+</pre>
+    <pre id="var-docstr">sc must be a sorted collection, test(s) one of &lt;, &lt;=, &gt; or
+&gt;=. Returns a reverse seq of those entries with keys ek for
+which (test (.. sc comparator (compare ek key)) 0) is true</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L235">Source</a>
+  </div><div id="var-entry">
+    <br />
+    <hr />
+    <h2 id="clojure.data.priority-map/subseq">subseq</h2>
+    <span id="var-type">function</span><br />
+    <pre id="var-usage">Usage: (subseq sc test key)
+       (subseq sc start-test start-key end-test end-key)
+</pre>
+    <pre id="var-docstr">sc must be a sorted collection, test(s) one of &lt;, &lt;=, &gt; or
+&gt;=. Returns a seq of those entries with keys ek for
+which (test (.. sc comparator (compare ek key)) 0) is true</pre>
+    <pre id="var-specs"></pre>
+    
+    
+    <a id="var-source" href="https://github.com/clojure/data.priority-map/blob/babe5dfe8d6cabfaab0bc72f288c6e1673d2b26b/src/main/clojure/clojure/data/priority_map.clj#L220">Source</a>
   </div>
 </div>
 
@@ -359,7 +428,7 @@ The priority is determined by comparing (keyfn val).
           </div>
 	</div>
 	<div id="foot">
-	  <div id="copyright" style="text-align: center;">Copyright 2007-2017 by Rich Hickey and the various contributors</div>
+	  <div id="copyright" style="text-align: center;">Copyright 2007-2019 by Rich Hickey and the various contributors</div>
 	</div>
       </div>
       <div id="DesignedBy">Logo &amp; site design by <a href="http://www.tomhickey.com" title="Visit Tom Hickey's website.">Tom Hickey</a>.<br />
