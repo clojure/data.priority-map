@@ -57,7 +57,7 @@ We can use assoc to assign a priority to a new item:
     user=> (assoc p :g 1)
     {:b 1, :g 1, :a 2, :c 3, :f 3, :e 4, :d 5}
 
-or to assign a new priority to an extant item:
+or to assign a new priority to an existant item:
 
     user=> (assoc p :c 4)
     {:b 1, :a 2, :f 3, :c 4, :e 4, :d 5}
