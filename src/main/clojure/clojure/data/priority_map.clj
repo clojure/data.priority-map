@@ -99,7 +99,7 @@ user=> (rest p)
 
 Priority maps also support subseq and rsubseq, however, *you must use the subseq and rsubseq
 defined in the clojure.data.priority-map namespace*, which patches longstanding JIRA issue
-[CLJ-428](https://dev.clojure.org/jira/browse/CLJ-428).  These patched versions
+[CLJ-428](https://clojure.atlassian.net/browse/CLJ-428).  These patched versions
 of subseq and rsubseq will work on Clojure's other sorted collections as well, so you can
 use them as a drop-in replacement for the subseq and rsubseq found in core.
 user=> (subseq p < 3)
