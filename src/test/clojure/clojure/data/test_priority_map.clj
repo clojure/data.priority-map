@@ -117,6 +117,7 @@
             (conj p [:b [6 :b]]) (conj h [:b [6 :b]])
             (into p [[:g [0 :g]] [:h [1 :h]] [:i [2 :i]]]) (into h [[:g [0 :g]] [:h [1 :h]] [:i [2 :i]]])
             (count p) (count h)
+            (reduce-kv (fn [m k v] (assoc m k v)) {} p) h
             (subseq p < 3) '([:b [1 :b]] [:a [2 :a]])
             (subseq p > 3) '([:e [4 :e]] [:d [5 :d]])
             (subseq p > 3 <= 4) '([:e [4 :e]])

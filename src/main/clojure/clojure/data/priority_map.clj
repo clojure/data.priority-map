@@ -366,8 +366,8 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
   clojure.lang.IHashEq
   (hasheq [this]
     (compile-if (resolve 'clojure.core/hash-unordered-coll)
-      (hash-unordered-coll this)
-      (.hashCode this)))
+                (hash-unordered-coll this)
+                (.hashCode this)))
   
   java.io.Serializable  ;Serialization comes for free with the other things implemented
   clojure.lang.MapEquivalence
@@ -392,9 +392,13 @@ to Clojure's assortment of built-in maps (hash-map and sorted-map).
 
   clojure.core.protocols/IKVReduce
   (kv-reduce [this f init]
-    (reduce-kv (fn [a k v]
-                 (reduce (fn [a v] (f a v k)) a v))
-               init priority->set-of-items))
+    (if keyfn            
+      (reduce-kv (fn [a k v]
+                   (reduce (fn [a v] (f a v (item->priority v))) a v))
+                 init priority->set-of-items)
+      (reduce-kv (fn [a k v]
+                   (reduce (fn [a v] (f a v k)) a v))
+                 init priority->set-of-items)))
 
   clojure.lang.IPersistentStack
   (peek [this]
