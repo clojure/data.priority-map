@@ -10,7 +10,7 @@
 ;; offering queue-like peek/pop as well as the map-like ability to
 ;; easily reassign priorities and other conveniences.
 ;; by Mark Engelberg (mark.engelberg@gmail.com)
-;; Last update - July 9, 2018
+;; Last update - September 19, 2021
 
 (ns 
     ^{:author "Mark Engelberg",
