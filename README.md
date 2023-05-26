@@ -231,6 +231,6 @@ subseq and rsubseq respect the keyfn and/or comparator:
 
 ## License
 
-Copyright (C) 2013-2020 Mark Engelberg, Rich Hickey & contributors
+Copyright (C) 2013-2023 Mark Engelberg, Rich Hickey & contributors
 
 Distributed under the Eclipse Public License, the same as Clojure.
