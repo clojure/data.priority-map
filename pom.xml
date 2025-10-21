@@ -3,6 +3,7 @@
   <artifactId>data.priority-map</artifactId>
   <version>1.2.1-SNAPSHOT</version>
   <name>data.priority-map</name>
+  <description>Clojure priority map data structure.</description>
 
   <parent>
     <groupId>org.clojure</groupId>
