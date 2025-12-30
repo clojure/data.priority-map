@@ -15,23 +15,23 @@ priority maps also support conj/peek/pop operations.
 
 This project follows the version scheme MAJOR.MINOR.PATCH where each component provides some relative indication of the size of the change, but does not follow semantic versioning. In general, all changes endeavor to be non-breaking (by moving to new names rather than by breaking existing names).
 
-Latest stable release is 1.2.0
+Latest stable release is 1.2.1
 
 [CLI/`deps.edn`](https://clojure.org/reference/deps_edn) dependency information:
 ```clojure
-org.clojure/data.priority-map {:mvn/version "1.2.0"}
+org.clojure/data.priority-map {:mvn/version "1.2.1"}
 ```
 
 [Leiningen](https://github.com/technomancy/leiningen) dependency information:
 
-    [org.clojure/data.priority-map "1.2.0"]
+    [org.clojure/data.priority-map "1.2.1"]
 
 [Maven](https://maven.apache.org/) dependency information:
 
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>data.priority-map</artifactId>
-      <version>1.2.0</version>
+      <version>1.2.1</version>
     </dependency>
 
 
